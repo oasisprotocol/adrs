@@ -1,5 +1,9 @@
 # ADR 0007: Improved Random Beacon
 
+## Component
+
+Oasis Core
+
 ## Changelog
 
 - 2020-10-22: Initial version

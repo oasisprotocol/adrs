@@ -1,5 +1,9 @@
 # ADR 0005: Runtime Compute Node Slashing
 
+## Component
+
+Oasis Core
+
 ## Changelog
 
 - 2020-10-14: Evidence expiry, duplicate evidence detection

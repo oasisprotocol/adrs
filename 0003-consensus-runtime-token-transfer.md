@@ -1,5 +1,9 @@
 # ADR 0003: Consensus/Runtime Token Transfer
 
+## Component
+
+Oasis Core
+
 ## Changelog
 
 - 2020-09-16: Beneficiary allowance, add message results

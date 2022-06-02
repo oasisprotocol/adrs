@@ -1,5 +1,9 @@
 # ADR 0008: Standard Account Key Generation
 
+## Component
+
+Oasis Core
+
 ## Changelog
 
 - 2021-05-07: Add test vectors and reference implementation, extend Consequences

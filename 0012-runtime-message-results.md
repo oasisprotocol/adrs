@@ -1,5 +1,9 @@
 # ADR 0012: Runtime Message Results
 
+## Component
+
+Oasis Core
+
 ## Changelog
 
 - 2021-12-04: Initial version

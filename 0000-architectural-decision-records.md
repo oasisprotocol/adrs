@@ -1,5 +1,9 @@
 # ADR 0000: Architectural Decision Records
 
+## Component
+
+ADRs
+
 ## Changelog
 
 - 2020-07-01: Initial version

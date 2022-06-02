@@ -1,4 +1,8 @@
-# ADR 10: VRF-based Committee Elections
+# ADR 0010: VRF-based Committee Elections
+
+## Component
+
+Oasis Core
 
 ## Changelog
 

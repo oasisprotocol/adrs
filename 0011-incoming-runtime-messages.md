@@ -1,5 +1,9 @@
 # ADR 0011: Incoming Runtime Messages
 
+## Component
+
+Oasis Core
+
 ## Changelog
 
 - 2022-01-07: Update based on insights from implementation

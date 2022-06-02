@@ -1,5 +1,9 @@
 # ADR 0006: Consensus Governance
 
+## Component
+
+Oasis Core
+
 ## Changelog
 
 - 2021-03-30: Update name of the CastVote method's body

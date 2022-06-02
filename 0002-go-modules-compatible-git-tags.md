@@ -1,5 +1,9 @@
 # ADR 0002: Go Modules Compatible Git Tags
 
+## Component
+
+Oasis Core
+
 ## Changelog
 
 - 2020-09-04: Initial version

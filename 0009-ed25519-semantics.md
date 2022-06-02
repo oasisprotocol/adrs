@@ -1,5 +1,9 @@
 # ADR 0009: Ed25519 Signature Verification Semantics
 
+## Component
+
+Oasis Core
+
 ## Changelog
 
 - 2021-05-10: Initial version

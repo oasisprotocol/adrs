@@ -1,5 +1,9 @@
 # ADR 0013: Runtime Upgrade Improvements
 
+## Component
+
+Oasis Core
+
 ## Changelog
 
 - 2022-01-25: Initial version

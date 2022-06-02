@@ -1,5 +1,9 @@
 # ADR {ADR-NUMBER}: {TITLE}
 
+## Component
+
+{Oasis Core|Oasis SDK|ADRs}
+
 ## Changelog
 
 - {date}: {changelog}

@@ -1,5 +1,9 @@
 # ADR 0004: Runtime Governance
 
+## Component
+
+Oasis Core
+
 ## Changelog
 
 - 2020-10-07: Add per-role max node limits, minimum required election pool size

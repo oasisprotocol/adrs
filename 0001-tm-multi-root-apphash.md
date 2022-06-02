@@ -1,5 +1,9 @@
 # ADR 0001: Multiple Roots Under the Tendermint Application Hash
 
+## Component
+
+Oasis Core
+
 ## Changelog
 
 - 2020-08-06: Added consequence for state checkpoints
