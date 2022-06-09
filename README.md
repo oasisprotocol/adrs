@@ -108,4 +108,5 @@ The following records currently exist:
 * [ADR 0010](0010-vrf-elections.md) - VRF-based Committee Elections
 * [ADR 0011](0011-incoming-runtime-messages.md) - Incoming Runtime Messages
 * [ADR 0012](0012-runtime-message-results.md) - Runtime Message Results
+* [ADR 0013](0013-runtime-upgrades.md) - Runtime Upgrade Improvements
 <!-- markdownlint-enable line-length -->
