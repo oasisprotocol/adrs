@@ -88,36 +88,8 @@ encrypted transaction body inside the `data` field.
 
 ### APDUSPEC additions
 
-#### GET_ADDR_SR25519
-
-##### Command
-
-| Field      | Type           | Content                | Expected       |
-| ---------- | -------------- | ---------------------- | -------------- |
-| CLA        | byte (1)       | Application Identifier | 0x05           |
-| INS        | byte (1)       | Instruction ID         | 0x03           |
-| P1         | byte (1)       | Request User confirmation | No = 0      |
-| P2         | byte (1)       | Parameter 2            | ignored        |
-| L          | byte (1)       | Bytes in payload       | (depends)      |
-| Path[0]    | byte (4)       | Derivation Path Data   | 44             |
-| Path[1]    | byte (4)       | Derivation Path Data   | 474            |
-| Path[2]    | byte (4)       | Derivation Path Data   | ?              |
-| Path[3]    | byte (4)       | Derivation Path Data   | ?              |
-| Path[4]    | byte (4)       | Derivation Path Data   | ?              |
-
-The first three items in the derivation path are hardened.
-
-##### Response
-
-| Field   | Type      | Content               | Note                     |
-| ------- | --------- | --------------------- | ------------------------ |
-| PK      | byte (32) | Public Key            |                          |
-| ADDR    | byte (??) | Bech 32 addr          |                          |
-| SW1-SW2 | byte (2)  | Return code           | see list of return codes |
-
 #### GET_ADDR_SECP256K1
 
-<!-- markdownlint-disable-next-line no-duplicate-header -->
 ##### Command
 
 | Field      | Type           | Content                | Expected       |
@@ -135,13 +107,41 @@ The first three items in the derivation path are hardened.
 
 The first three items in the derivation path are hardened.
 
-<!-- markdownlint-disable-next-line no-duplicate-header -->
 ##### Response
 
 | Field   | Type      | Content               | Note                     |
 | ------- | --------- | --------------------- | ------------------------ |
 | PK      | byte (32) | Public Key            |                          |
 | ADDR    | byte (??) | Hex addr              |                          |
+| SW1-SW2 | byte (2)  | Return code           | see list of return codes |
+
+#### GET_ADDR_SR25519
+
+<!-- markdownlint-disable-next-line no-duplicate-header -->
+##### Command
+
+| Field      | Type           | Content                | Expected       |
+| ---------- | -------------- | ---------------------- | -------------- |
+| CLA        | byte (1)       | Application Identifier | 0x05           |
+| INS        | byte (1)       | Instruction ID         | 0x03           |
+| P1         | byte (1)       | Request User confirmation | No = 0      |
+| P2         | byte (1)       | Parameter 2            | ignored        |
+| L          | byte (1)       | Bytes in payload       | (depends)      |
+| Path[0]    | byte (4)       | Derivation Path Data   | 44             |
+| Path[1]    | byte (4)       | Derivation Path Data   | 474            |
+| Path[2]    | byte (4)       | Derivation Path Data   | ?              |
+| Path[3]    | byte (4)       | Derivation Path Data   | ?              |
+| Path[4]    | byte (4)       | Derivation Path Data   | ?              |
+
+The first three items in the derivation path are hardened.
+
+<!-- markdownlint-disable-next-line no-duplicate-header -->
+##### Response
+
+| Field   | Type      | Content               | Note                     |
+| ------- | --------- | --------------------- | ------------------------ |
+| PK      | byte (32) | Public Key            |                          |
+| ADDR    | byte (??) | Bech 32 addr          |                          |
 | SW1-SW2 | byte (2)  | Return code           | see list of return codes |
 
 #### SIGN_PT_ED25519
@@ -153,58 +153,6 @@ The first three items in the derivation path are hardened.
 | ----- | -------- | ---------------------- | --------- |
 | CLA   | byte (1) | Application Identifier | 0x05      |
 | INS   | byte (1) | Instruction ID         | 0x05      |
-| P1    | byte (1) | Payload desc           | 0 = init  |
-|       |          |                        | 1 = add   |
-|       |          |                        | 2 = last  |
-| P2    | byte (1) | ----                   | not used  |
-| L     | byte (1) | Bytes in payload       | (depends) |
-
-The first packet/chunk includes only the derivation path.
-
-All other packets/chunks should contain message to sign.
-
-<!-- markdownlint-disable-next-line no-emphasis-as-header -->
-*First Packet*
-
-| Field      | Type     | Content                | Expected  |
-| ---------- | -------- | ---------------------- | --------- |
-| Path[0]    | byte (4) | Derivation Path Data   | 44        |
-| Path[1]    | byte (4) | Derivation Path Data   | 474       |
-| Path[2]    | byte (4) | Derivation Path Data   | ?         |
-| Path[3]    | byte (4) | Derivation Path Data   | ?         |
-| Path[4]    | byte (4) | Derivation Path Data   | ?         |
-
-<!-- markdownlint-disable-next-line no-emphasis-as-header -->
-*Other Chunks/Packets*
-
-| Field   | Type     | Content              | Expected |
-| ------- | -------- | -------------------- | -------- |
-| Data    | bytes... | Meta+Message         |          |
-
-Data is defined as:
-
-| Field   | Type     | Content                    | Expected     |
-| ------- | -------- | -------------------------- | ------------ |
-| Meta    | bytes..  | CBOR metadata to verify    |              |
-| Message | bytes..  | CBOR data to sign          |              |
-
-<!-- markdownlint-disable-next-line no-duplicate-header -->
-##### Response
-
-| Field   | Type      | Content     | Note                     |
-| ------- | --------- | ----------- | ------------------------ |
-| SIG     | byte (64) | Signature   |                          |
-| SW1-SW2 | byte (2)  | Return code | see list of return codes |
-
-#### SIGN_PT_SR25519
-
-<!-- markdownlint-disable-next-line no-duplicate-header -->
-##### Command
-
-| Field | Type     | Content                | Expected  |
-| ----- | -------- | ---------------------- | --------- |
-| CLA   | byte (1) | Application Identifier | 0x05      |
-| INS   | byte (1) | Instruction ID         | 0x06      |
 | P1    | byte (1) | Payload desc           | 0 = init  |
 |       |          |                        | 1 = add   |
 |       |          |                        | 2 = last  |
@@ -300,6 +248,58 @@ Data is defined as:
 | SIG     | byte (64) | Signature   |                          |
 | SW1-SW2 | byte (2)  | Return code | see list of return codes |
 
+#### SIGN_PT_SR25519
+
+<!-- markdownlint-disable-next-line no-duplicate-header -->
+##### Command
+
+| Field | Type     | Content                | Expected  |
+| ----- | -------- | ---------------------- | --------- |
+| CLA   | byte (1) | Application Identifier | 0x05      |
+| INS   | byte (1) | Instruction ID         | 0x06      |
+| P1    | byte (1) | Payload desc           | 0 = init  |
+|       |          |                        | 1 = add   |
+|       |          |                        | 2 = last  |
+| P2    | byte (1) | ----                   | not used  |
+| L     | byte (1) | Bytes in payload       | (depends) |
+
+The first packet/chunk includes only the derivation path.
+
+All other packets/chunks should contain message to sign.
+
+<!-- markdownlint-disable-next-line no-emphasis-as-header -->
+*First Packet*
+
+| Field      | Type     | Content                | Expected  |
+| ---------- | -------- | ---------------------- | --------- |
+| Path[0]    | byte (4) | Derivation Path Data   | 44        |
+| Path[1]    | byte (4) | Derivation Path Data   | 474       |
+| Path[2]    | byte (4) | Derivation Path Data   | ?         |
+| Path[3]    | byte (4) | Derivation Path Data   | ?         |
+| Path[4]    | byte (4) | Derivation Path Data   | ?         |
+
+<!-- markdownlint-disable-next-line no-emphasis-as-header -->
+*Other Chunks/Packets*
+
+| Field   | Type     | Content              | Expected |
+| ------- | -------- | -------------------- | -------- |
+| Data    | bytes... | Meta+Message         |          |
+
+Data is defined as:
+
+| Field   | Type     | Content                    | Expected     |
+| ------- | -------- | -------------------------- | ------------ |
+| Meta    | bytes..  | CBOR metadata to verify    |              |
+| Message | bytes..  | CBOR data to sign          |              |
+
+<!-- markdownlint-disable-next-line no-duplicate-header -->
+##### Response
+
+| Field   | Type      | Content     | Note                     |
+| ------- | --------- | ----------- | ------------------------ |
+| SIG     | byte (64) | Signature   |                          |
+| SW1-SW2 | byte (2)  | Return code | see list of return codes |
+
 ### Signing deposit, withdrawal and transfer transactions
 
 #### Allowance (consensus layer!)
@@ -319,11 +319,15 @@ propose an improved UI:
 following in place of `TO` for specific `NETWORK` and addresses:
 
 <!-- markdownlint-disable line-length -->
-- `NETWORK`: Mainnet, address: `oasis1qrnu9yhwzap7rqh6tdcdcpz0zf86hwhycchkhvt8` → `Cipher`
-- `NETWORK`: Testnet, address: `oasis1qqdn25n5a2jtet2s5amc7gmchsqqgs4j0qcg5k0t` → `Cipher`
-- `NETWORK`: Mainnet, address: `oasis1qzvlg0grjxwgjj58tx2xvmv26era6t2csqn22pte` → `Emerald`
-- `NETWORK`: Testnet, address: `oasis1qr629x0tg9gm5fyhedgs9lw5eh3d8ycdnsxf0run` → `Emerald`
+- Network: Mainnet, To: `oasis1qrnu9yhwzap7rqh6tdcdcpz0zf86hwhycchkhvt8` → `Cipher`
+- Network: Testnet, To: `oasis1qqdn25n5a2jtet2s5amc7gmchsqqgs4j0qcg5k0t` → `Cipher`
+- Network: Mainnet, To: `oasis1qzvlg0grjxwgjj58tx2xvmv26era6t2csqn22pte` → `Emerald`
+- Network: Testnet, To: `oasis1qr629x0tg9gm5fyhedgs9lw5eh3d8ycdnsxf0run` → `Emerald`
 <!-- markdownlint-enable line-length -->
+
+Check the [Mainnet network parameters] and [Testnet network parameters] pages
+to obtain the current hash of the genesis document for Mainnet and Testnet
+networks respectively.
 
 The mapping above should be hardcoded into the hardware wallet app. If you
 are interested in how addresses were derived from the Runtime ID check the
@@ -331,8 +335,7 @@ are interested in how addresses were derived from the Runtime ID check the
 
 #### Deposit
 
-The second step is to sign the `consensus.Deposit` transaction with the
-following proposed UI:
+We propose the following UI for `consensus.Deposit` Runtime transaction:
 
 <!-- markdownlint-disable line-length -->
 ```ledger
@@ -359,36 +362,37 @@ place of `MIXED_TO`.
 the transaction fee. The number must be formatted according to the number of
 decimal places and showing a corresponding symbol `SYM` beside. These are
 determined by the following mapping hardcoded in the hardware wallet:
- `(NETWORK, RUNTIME ID, DENOMINATION) → (NUMBER OF DECIMALS, SYM)`
 
-`DENOMINATION` information is stored in `tx.part.body.amount[1]` or
+`(Network, Runtime ID, Denomination) → (Number of decimals, SYM)`
+
+Denomination information is stored in `tx.part.body.amount[1]` or
 `tx.ai.fee.amount[1]` for the tokens transferred in the transaction or the fee
-respectively. Empty `DENOMINATION` is valid and signifies the native token
-for the known networks and Runtimes.
+respectively. Empty Denomination is valid and signifies the native token
+for the known networks and Runtime IDs (see below).
 
 The hardware wallet should have at least the following mappings hardcoded:
 
-- `NETWORK`: Mainnet, `RUNTIME ID`: Cipher, `DENOMINATION`: "" → `9, "ROSE"`
-- `NETWORK`: Testnet, `RUNTIME ID`: Cipher, `DENOMINATION`: "" → `9, "TEST"`
-- `NETWORK`: Mainnet, `RUNTIME ID`: Emerald, `DENOMINATION`: "" → `18, "ROSE"`
-- `NETWORK`: Testnet, `RUNTIME ID`: Emerald, `DENOMINATION`: "" → `18, "TEST"`
+- Network: Mainnet, Runtime ID: Cipher, Denomination: "" → 9, `ROSE`
+- Network: Testnet, Runtime ID: Cipher, Denomination: "" → 9, `TEST`
+- Network: Mainnet, Runtime ID: Emerald, Denomination: "" → 18, `ROSE`
+- Network: Testnet, Runtime ID: Emerald, Denomination: "" → 18, `TEST`
 
 If the lookup fails, the following policy should be respected:
 
-- `SYM` is rendered as empty string.
-- The number of decimals is 18, if `RUNTIME ID` matches any Emerald Runtime on
-  any network.
-- Otherwise, the number of decimals is 9.
+1. `SYM` is rendered as empty string.
+2. The number of decimals is 18, if Runtime ID matches any Emerald Runtime on
+   any network.
+3. Otherwise, the number of decimals is 9.
 
 `RUNTIME` shows the 32-byte hex encoded Runtime ID stored in `Meta.runtime_id`.
 If `NETWORK` matches Mainnet or Testnet, then human-readable version of
 `RUNTIME` is shown:
 
 <!-- markdownlint-disable line-length -->
-- `NETWORK`: Mainnet, Runtime ID: `000000000000000000000000000000000000000000000000e199119c992377cb` → `Cipher`
-- `NETWORK`: Testnet, Runtime ID: `0000000000000000000000000000000000000000000000000000000000000000` → `Cipher`
-- `NETWORK`: Mainnet, Runtime ID: `000000000000000000000000000000000000000000000000e2eaa99fc008f87f` → `Emerald`
-- `NETWORK`: Testnet, Runtime ID: `00000000000000000000000000000000000000000000000072c8215e60d5bca7` → `Emerald`
+- Network: Mainnet, Runtime ID: `000000000000000000000000000000000000000000000000e199119c992377cb` → `Cipher`
+- Network: Testnet, Runtime ID: `0000000000000000000000000000000000000000000000000000000000000000` → `Cipher`
+- Network: Mainnet, Runtime ID: `000000000000000000000000000000000000000000000000e2eaa99fc008f87f` → `Emerald`
+- Network: Testnet, Runtime ID: `00000000000000000000000000000000000000000000000072c8215e60d5bca7` → `Emerald`
 <!-- markdownlint-enable line-length -->
 
 **SAFETY CHECK:** Runtime chain domain separation context `Meta.sig_context`
@@ -399,8 +403,8 @@ context function] for the reference implementation.
 
 #### Withdraw
 
-The `consensus.Withdraw` transaction has the following UI on the hardware
-wallet:
+The `consensus.Withdraw` transaction should have the following UI on the
+hardware wallet:
 
 <!-- markdownlint-disable line-length -->
 ```ledger
@@ -416,7 +420,8 @@ place of `TO`.
 
 #### Transfer
 
-The `accounts.Transfer` transaction has the following UI on the hardware wallet:
+The `accounts.Transfer` transaction should have the following UI on the
+hardware wallet:
 
 <!-- markdownlint-disable line-length -->
 ```ledger
@@ -480,13 +485,13 @@ size of the available encrypted memory.
 
 #### Instantiating smart contract
 
-`contracts.Instantiate` shows the following UI on the hardware wallet:
+`contracts.Instantiate` should have the following UI on the hardware wallet:
 
 <!-- markdownlint-disable line-length -->
 ```ledger
 |  Review Contract > | < Code ID > | < Amount (1/1) > | < Data (1/1) > | ... | <    Fee    > | < Gas limit > | <  Network  > | <  ParaTime  > | <             > | <               |
 |   Instantiation    |  <CODE ID>  |   <AMOUNT...>    |     <DATA>     | ... |  <SYM> <FEE>  |  <GAS LIMIT>  |   <NETWORK>   |   <RUNTIME>    |     APPROVE     |      REJECT     |
-|                    |             |                  |                | ... |               |               |               |                |                 |                 |
+|    (ParaTime)      |             |                  |                | ... |               |               |               |                |                 |                 |
 ```
 <!-- markdownlint-enable line-length -->
 
@@ -503,7 +508,7 @@ it generated a non-malicious transaction!**
 `AMOUNT...` is the amount of tokens sent. Contract SDK supports sending
 multiple tokens at once, each with its own denomination symbol. The hardware
 wallet should render all of them, one per page. For rendering rules of each
-`AMOUNT` consult the [Deposit (+Allowance)](#deposit-allowance) behavior.
+`AMOUNT` consult the [`consensus.Deposit`](#deposit) behavior.
 
 There can be multiple Data screens Data 1, Data 2, ..., Data N for each key in
 `tx.call.body.data` map. `DATA` can be one of the following types:
@@ -563,22 +568,22 @@ to too complex function parameters.
 <!-- markdownlint-disable line-length -->
 ```ledger
 |  Review Contract > | < BLIND > | < Instance ID (1/1) > | <   Amount    > | <     Fee     > | <  Network  > | <  ParaTime > | <            > | <             |
-|    Instantiate     |  SIGNING! |     <INSTANCE ID>     | <SYM> <AMOUNT>  |   <SYM> <FEE>   |   <NETWORK>   |   <RUNTIME>   |    APPROVE     |     REJECT    |
-|                    |           |                       |                 |                 |               |               |                |               |
+|   Instantiation    |  SIGNING! |     <INSTANCE ID>     | <SYM> <AMOUNT>  |   <SYM> <FEE>   |   <NETWORK>   |   <RUNTIME>   |    APPROVE     |     REJECT    |
+|    (ParaTime)      |           |                       |                 |                 |               |               |                |               |
 ```
 <!-- markdownlint-enable line-length -->
 
 #### Calling smart contract
 
 The hardware wallet should show details of the Runtime transaction to the
-user, when this is possible. `contracts.Call` shows the following UI on the
-hardware wallet:
+user, when this is possible. `contracts.Call` should have the following UI on
+the hardware wallet:
 
 <!-- markdownlint-disable line-length -->
 ```ledger
 | Review Contract > | < Instance ID > | < Amount (1/1) > | < Data (1/1) > | ... | <     Fee     > | < Gas limit > | <  Network  > | <  ParaTime  > | <             > | <              |
 |      Call         |  <INSTANCE ID>  |   <AMOUNT...>    |     <DATA>     | ... |   <SYM> <FEE>   |  <GAS LIMIT>  |   <NETWORK>   |   <RUNTIME>    |     APPROVE     |     REJECT     |
-|                   |                 |                  |                | ... |                 |               |               |                |                 |                |
+|   (ParaTime)      |                 |                  |                | ... |                 |               |               |                |                 |                |
 ```
 <!-- markdownlint-enable line-length -->
 
@@ -587,13 +592,13 @@ The Data screen behavior is the same as for
 
 #### Upgrading smart contracts
 
-Signing `contracts.Upgrade` shows the following UI on the hardware wallet:
+Signing `contracts.Upgrade` should show the following UI on the hardware wallet:
 
 <!-- markdownlint-disable line-length -->
 ```ledger
 |  Review Contract > | < Instance ID (1/1) > | < Amount (1/1) > | < New Code ID (1/1) > | < Data (1/1) > | ... | < ParaTime > | <     Fee     > | < Gas limit > | < Network > | < ParaTime > | <             > | <               |
 |      Upgrade       |     <INSTANCE ID>     |   <AMOUNT...>    |      <CODE_ID>        |     <DATA>     |     |  <RUNTIME>   |   <SYM> <FEE>   |  <GAS LIMIT>  |  <NETWORK>  |  <RUNTIME>   |    APPROVE      |      REJECT     |
-|                    |                       |                  |                       |                |     |              |                 |               |             |              |                 |                 |
+|    (ParaTime)      |                       |                  |                       |                |     |              |                 |               |             |              |                 |                 |
 ```
 <!-- markdownlint-enable line-length -->
 
@@ -613,7 +618,7 @@ Next, the user instantiates the contract and obtains the `Instance ID` 2.
 ```ledger
 |  Review Contract > | < Code ID > | <  Amount  > | <      Data      > | <    Fee    > | < Gas limit > | <  Network  > | <  ParaTime  > | <             > | <               |
 |   Instantiation    |      3      |   ROSE 0.0   | {instantiate:{init |   ROSE 0.0    |     1348      |    Mainnet    |     Cipher     |     APPROVE     |      REJECT     |
-|                    |             |              | ial_counter:42}}   |               |               |               |                |                 |                 |                 |
+|    (ParaTime)      |             |              | ial_counter:42}}   |               |               |               |                |                 |                 |                 |
 ```
 <!-- markdownlint-enable line-length -->
 
@@ -624,7 +629,7 @@ passing the `{"who":"me"}` object as a function argument.
 ```ledger
 | Review Contract > | < Instance ID > | <  Amount  > | <      Data      > | <     Fee     > | < Gas limit > | <  Network  > | <  ParaTime  > | <             > | <              |
 |      Call         |       2         |   ROSE 0.0   | {say_hello:{who:me |     ROSE 0.0    |     1283      |    Mainnet    |     Cipher     |     APPROVE     |     REJECT     |
-|                   |                 |              | }}                 |                 |               |               |                |                 |                |
+|   (ParaTime)      |                 |              | }}                 |                 |               |               |                |                 |                |
 ```
 <!-- markdownlint-enable line-length -->
 
@@ -649,7 +654,7 @@ In this case the hardware wallet renders the following UI.
 ```ledger
 | Review Contract > | <  Instance ID  > | <   Amount  > | <      Data      > | <     Fee     > | < Gas limit > | <  Network  > | <  ParaTime  > | <            > | <              |
 |      Call         |       2           |    ROSE 0.0   | {say_hello:{who:{u |    ROSE 0.15    |     1283      |    Mainnet    |     Cipher     |    APPROVE     |     REJECT     |
-|                   |                   |               | sername:alice,cli… |                 |               |               |                |                |                |
+|   (ParaTime)      |                   |               | sername:alice,cli… |                 |               |               |                |                |                |
 
                                                         V                    V
 
@@ -683,14 +688,14 @@ In this case the hardware wallet renders the following UI.
 the call data encrypted with an ephemeral X25519DeoxysII key. The hardware
 wallet is not expected to implement this scheme and decrypt the transaction,
 neither it is safe to share the ephemeral key with anyone. Instead, the user
-must enable **blind signing** and the hardware wallet shows the hash of the
-encrypted transaction, the X25519DeoxysII public key and the nonce:
+must enable **blind signing** and the hardware wallet should show the hash of
+the encrypted transaction, the X25519DeoxysII public key and the nonce:
 
 <!-- markdownlint-disable line-length -->
 ```ledger
-|   Review  > | < BLIND > | < Tx hash (1/1) > | < Public key (1/1) > | <  Nonce (1/1) > | <    Fee    > | < Gas limit > | <  Network  > | <  ParaTime > | <             > | <             |
-|  Encrypted  |  SIGNING! |     <TX_HASH>     |     <PUBLIC_KEY>     |      <NONCE>     |  <SYM> <FEE>  |  <GAS LIMIT>  |   <NETWORK>   |   <RUNTIME>   |     APPROVE     |     REJECT    |
-| Transaction |           |                   |                      |                  |               |               |               |               |                 |               |
+| Review Encrypted > | < BLIND > | < Tx hash (1/1) > | < Public key (1/1) > | <  Nonce (1/1) > | <    Fee    > | < Gas limit > | <  Network  > | <  ParaTime > | <             > | <             |
+|   Transaction      |  SIGNING! |     <TX_HASH>     |     <PUBLIC_KEY>     |      <NONCE>     |  <SYM> <FEE>  |  <GAS LIMIT>  |   <NETWORK>   |   <RUNTIME>   |     APPROVE     |     REJECT    |
+|   (ParaTime)       |           |                   |                      |                  |               |               |               |               |                 |               |
 ```
 <!-- markdownlint-enable line-length -->
 
@@ -713,13 +718,13 @@ size of the EVM byte code may easily exceed the wallet's encrypted memory size.
 In contrast to `contracts.Call`, `evm.Call` would require contract ABI in order
 to extract argument names which are stored in the RLP-encoded transaction on
 the blockchain. We do not support this, so only **blind signing** is performed
-which the user needs to enable first. The UI is as follows:
+which the user needs to enable first. The UI should be as follows:
 
 <!-- markdownlint-disable line-length -->
 ```ledger
-|  Review EVM > | < BLIND > | < Address (1/1) > | <   Amount    > | <     Fee     > | <  Network  > | <  ParaTime > | <            > | <             |
-|   Contract    |  SIGNING! |     <ADDRESS>     | <SYM> <AMOUNT>  |   <SYM> <FEE>   |   <NETWORK>   |   <RUNTIME>   |    APPROVE     |     REJECT    |
-|    Call       |           |                   |                 |                 |               |               |                |               |
+|   Review EVM   > | < BLIND > | < Address (1/1) > | <   Amount    > | <     Fee     > | <  Network  > | <  ParaTime > | <            > | <             |
+|  Contract Call   |  SIGNING! |     <ADDRESS>     | <SYM> <AMOUNT>  |   <SYM> <FEE>   |   <NETWORK>   |   <RUNTIME>   |    APPROVE     |     REJECT    |
+|   (ParaTime)     |           |                   |                 |                 |               |               |                |               |
 ```
 <!-- markdownlint-enable line-length -->
 
@@ -744,11 +749,21 @@ This ADR does not propose a UI for *generic* Runtime calls
 new release of the hardware wallet app each time a new Runtime transaction type
 is introduced.
 
-##### Signing contract uploads on hardware wallets
+#### Signing contract uploads on hardware wallets
 
 In the future perhaps, if only the merkle root hash of the Wasm contract would
 be contained in the transaction, signing such a contract could be feasible. See
 how Ethereum 2.x contract deployment is done using this approach.
+
+#### Consideration of adding `From` screen
+
+None of the proposed UIs and the existing implementation of signing the
+consensus transactions on Ledger show *who* is a signer of the transaction.
+The signer's *from* address can be extracted from
+`tx.ai.si[0].address_spec.signature.<SIGNATURE TYPE>`
+for oasis native address and if the signer wants to show the Ethereum address,
+`Meta.orig_from` should be populated and the hardware wallet should
+verify it before showing the tx.
 
 ## References
 
@@ -756,6 +771,8 @@ how Ethereum 2.x contract deployment is done using this approach.
 - [Existing APDU specification](https://github.com/Zondax/ledger-oasis/blob/master/docs/APDUSPEC.md)
 
 [ADR 11]: ./0011-incoming-runtime-messages.md
+[Mainnet network parameters]: https://docs.oasis.dev/general/oasis-network/network-parameters
+[Testnet network parameters]: https://docs.oasis.dev/general/foundation/testnet/
 [staking document]:
   https://docs.oasis.dev/oasis-core/consensus/services/staking/#runtime-accounts
 [mapping function]:
