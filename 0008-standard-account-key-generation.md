@@ -584,7 +584,7 @@ the [Ledger] and [Trezor] hardware wallets.
 [tor-hd]:
   https://gitweb.torproject.org/torspec.git/tree/proposals/224-rend-spec-ng.txt#n2135
 [oasis-ledger-app]: https://github.com/LedgerHQ/app-oasis
-[bitpie]: /general/manage-tokens/holding-rose-tokens/bitpie-wallet
+[bitpie]: https://github.com/oasisprotocol/docs/blob/main/docs/general/manage-tokens/holding-rose-tokens/bitpie-wallet.md
 [Andrew Kozlik (SatoshiLabs)]: https://github.com/andrewkozlik
 [kozlik-comments]:
   https://github.com/satoshilabs/slips/issues/703#issuecomment-515213584
