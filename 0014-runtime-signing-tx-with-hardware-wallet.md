@@ -771,10 +771,12 @@ verify it before showing the tx.
 - [Existing APDU specification](https://github.com/Zondax/ledger-oasis/blob/master/docs/APDUSPEC.md)
 
 [ADR 11]: ./0011-incoming-runtime-messages.md
-[Mainnet network parameters]: https://docs.oasis.dev/general/oasis-network/network-parameters
-[Testnet network parameters]: https://docs.oasis.dev/general/foundation/testnet/
+[Mainnet network parameters]:
+  https://github.com/oasisprotocol/docs/blob/main/docs/node/mainnet/README.md
+[Testnet network parameters]:
+  https://github.com/oasisprotocol/docs/blob/main/docs/node/testnet/README.md
 [staking document]:
-  https://docs.oasis.dev/oasis-core/consensus/services/staking/#runtime-accounts
+  https://github.com/oasisprotocol/oasis-core/blob/master/docs/consensus/services/staking.md#runtime-accounts
 [mapping function]:
   https://github.com/oasisprotocol/oasis-sdk/blob/e566b326ab1c34f3d811b50f96c53c3a79a91826/client-sdk/go/types/address.go#L134-L141
 [chain context function]:
@@ -792,5 +794,5 @@ verify it before showing the tx.
 [runtime-sdk envelope]:
   https://github.com/oasisprotocol/oasis-sdk/blob/488447a1f72c948a3437993cca9e3fd83bcfe617/runtime-sdk/src/types/callformat.rs#L7-L16
 [hello world example]:
-  https://docs.oasis.dev/oasis-sdk/contract/hello-world#deploying-the-contract
+  https://github.com/oasisprotocol/oasis-sdk/blob/main/docs/contract/hello-world.md#deploying-the-contract
 <!-- markdownlint-enable line-length -->

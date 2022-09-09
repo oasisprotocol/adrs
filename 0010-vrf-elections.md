@@ -324,5 +324,5 @@ rename and code removal, the exact details are left unspecified.
 
 ## References
 
-- [1]: https://datatracker.ietf.org/doc/draft-irtf-cfrg-vrf/
-- [2]: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-185.pdf
+[1]: https://datatracker.ietf.org/doc/draft-irtf-cfrg-vrf/
+[2]: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-185.pdf
