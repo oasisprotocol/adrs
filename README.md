@@ -109,4 +109,7 @@ The following records currently exist:
 * [ADR 0011](0011-incoming-runtime-messages.md) - Incoming Runtime Messages
 * [ADR 0012](0012-runtime-message-results.md) - Runtime Message Results
 * [ADR 0013](0013-runtime-upgrades.md) - Runtime Upgrade Improvements
+* [ADR 0014](0014-runtime-signing-tx-with-hardware-wallet.md) - Signing Runtime Transactions with Hardware Wallet
+* [ADR 0015](0015-vrf-per-block-entropy.md) - Randomized Paratime Proposer Selection
+* [ADR 0016](0016-consensus-parameters-change-proposal.md) - Consensus Parameters Change Proposal
 <!-- markdownlint-enable line-length -->
