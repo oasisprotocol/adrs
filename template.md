@@ -2,7 +2,13 @@
 
 ## Component
 
-{Oasis Core|Oasis SDK|ADRs}
+{Oasis Core|Oasis SDK|ADRs|(Apps - {Sapphire|Cipher})}
+
+> If the component is "Apps" the ADR is a specification for an application
+> standard on a ParaTime. The ADR will follow the format in [ADR-17] and the
+> "Component" will be suffex by a dash and then the name of the ParaTime.
+
+[ADR-17]: ./0017-app-standards.md
 
 ## Changelog
 
