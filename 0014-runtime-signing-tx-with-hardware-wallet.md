@@ -323,6 +323,8 @@ following in place of `TO` for specific `NETWORK` and addresses:
 - Network: Testnet, To: `oasis1qqdn25n5a2jtet2s5amc7gmchsqqgs4j0qcg5k0t` → `Cipher`
 - Network: Mainnet, To: `oasis1qzvlg0grjxwgjj58tx2xvmv26era6t2csqn22pte` → `Emerald`
 - Network: Testnet, To: `oasis1qr629x0tg9gm5fyhedgs9lw5eh3d8ycdnsxf0run` → `Emerald`
+- Network: Mainnet, To: `TBA` → `Sapphire`
+- Network: Testnet, To: `oasis1qqczuf3x6glkgjuf0xgtcpjjw95r3crf7y2323xd` → `Sapphire`
 <!-- markdownlint-enable line-length -->
 
 Check the [Mainnet network parameters] and [Testnet network parameters] pages
@@ -376,12 +378,14 @@ The hardware wallet should have at least the following mappings hardcoded:
 - Network: Testnet, Runtime ID: Cipher, Denomination: "" → 9, `TEST`
 - Network: Mainnet, Runtime ID: Emerald, Denomination: "" → 18, `ROSE`
 - Network: Testnet, Runtime ID: Emerald, Denomination: "" → 18, `TEST`
+- Network: Mainnet, runtime ID: Sapphire, Denomination: "" → 18, `ROSE`
+- Network: Testnet, runtime ID: Sapphire, Denomination: "" → 18, `TEST`
 
 If the lookup fails, the following policy should be respected:
 
 1. `SYM` is rendered as empty string.
-2. The number of decimals is 18, if Runtime ID matches any Emerald Runtime on
-   any network.
+2. The number of decimals is 18, if Runtime ID matches any Emerald or Sapphire
+   runtime on any network.
 3. Otherwise, the number of decimals is 9.
 
 `RUNTIME` shows the 32-byte hex encoded Runtime ID stored in `Meta.runtime_id`.
@@ -393,6 +397,8 @@ If `NETWORK` matches Mainnet or Testnet, then human-readable version of
 - Network: Testnet, Runtime ID: `0000000000000000000000000000000000000000000000000000000000000000` → `Cipher`
 - Network: Mainnet, Runtime ID: `000000000000000000000000000000000000000000000000e2eaa99fc008f87f` → `Emerald`
 - Network: Testnet, Runtime ID: `00000000000000000000000000000000000000000000000072c8215e60d5bca7` → `Emerald`
+- Network: Mainnet, runtime ID: `TBA` → `Sapphire`
+- Network: Testnet, runtime ID: `000000000000000000000000000000000000000000000000a6d1e3ebf60dff6c` → `Sapphire`
 <!-- markdownlint-enable line-length -->
 
 **SAFETY CHECK:** Runtime chain domain separation context `Meta.sig_context`
