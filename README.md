@@ -112,4 +112,6 @@ The following records currently exist:
 * [ADR 0014](0014-runtime-signing-tx-with-hardware-wallet.md) - Signing Runtime Transactions with Hardware Wallet
 * [ADR 0015](0015-vrf-per-block-entropy.md) - Randomized Paratime Proposer Selection
 * [ADR 0016](0016-consensus-parameters-change-proposal.md) - Consensus Parameters Change Proposal
+* [ADR 0017](0017-app-standards.md) - ParaTime Application Standard Proposal Process
+* [ADR 0018](0018-ircp.md) - Inter-Runtime Communication Protocol
 <!-- markdownlint-enable line-length -->
