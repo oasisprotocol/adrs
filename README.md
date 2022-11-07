@@ -112,4 +112,5 @@ The following records currently exist:
 * [ADR 0014](0014-runtime-signing-tx-with-hardware-wallet.md) - Signing Runtime Transactions with Hardware Wallet
 * [ADR 0015](0015-vrf-per-block-entropy.md) - Randomized Paratime Proposer Selection
 * [ADR 0016](0016-consensus-parameters-change-proposal.md) - Consensus Parameters Change Proposal
+* [ADR 0020](0020-governance-delegator-votes.md) - Governance Support for Delegator Votes
 <!-- markdownlint-enable line-length -->
