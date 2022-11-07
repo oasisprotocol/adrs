@@ -1,4 +1,4 @@
-# ADR 0020: Governance Support Delegators Votes
+# ADR 0020: Governance Support for Delegator Votes
 
 ## Component
 
@@ -12,7 +12,7 @@ Oasis Core
 
 ## Status
 
-Proposed
+Accepted
 
 ## Context
 
