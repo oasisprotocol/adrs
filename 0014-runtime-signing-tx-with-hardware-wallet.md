@@ -6,6 +6,8 @@ Oasis SDK
 
 ## Changelog
 
+- 2022-12-13:
+  - Fix Secp256k1 public key size.
 - 2022-10-12:
   - Add Sapphire testnet runtime ID,
   - Remove redundant `sig_context` from `Meta`,
@@ -122,7 +124,7 @@ The first three items in the derivation path are hardened.
 
 | Field   | Type      | Content               | Note                     |
 | ------- | --------- | --------------------- | ------------------------ |
-| PK      | byte (32) | Public Key            |                          |
+| PK      | byte (33) | Public Key            |                          |
 | ADDR    | byte (??) | Hex addr              |                          |
 | SW1-SW2 | byte (2)  | Return code           | see list of return codes |
 
