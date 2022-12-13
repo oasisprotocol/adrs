@@ -7,7 +7,7 @@ Oasis SDK
 ## Changelog
 
 - 2022-12-13:
-  - Fix Secp256k1 public key size.
+  - Fix Secp256k1 public key and signature size.
 - 2022-10-12:
   - Add Sapphire testnet runtime ID,
   - Remove redundant `sig_context` from `Meta`,
@@ -258,7 +258,7 @@ Data is defined as:
 
 | Field   | Type      | Content     | Note                     |
 | ------- | --------- | ----------- | ------------------------ |
-| SIG     | byte (64) | Signature   |                          |
+| SIG     | byte (65) | Signature   |                          |
 | SW1-SW2 | byte (2)  | Return code | see list of return codes |
 
 #### SIGN_PT_SR25519
