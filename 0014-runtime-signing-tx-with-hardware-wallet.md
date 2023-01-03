@@ -6,10 +6,12 @@ Oasis SDK
 
 ## Changelog
 
+- 2022-01-03:
+  - Add Sapphire runtime ID and consensus address on Mainnet.
 - 2022-12-13:
   - Fix Secp256k1 public key size.
 - 2022-10-12:
-  - Add Sapphire testnet runtime ID,
+  - Add Sapphire runtime ID and consensus address on Testnet,
   - Remove redundant `sig_context` from `Meta`,
   - Require `tx.call.format` to be either `0` or `1`.
 - 2022-07-15: Initial public version
@@ -342,7 +344,7 @@ following literals in place of `TO` for specific `NETWORK` and addresses:
 - Network: Testnet, To: `oasis1qqdn25n5a2jtet2s5amc7gmchsqqgs4j0qcg5k0t` → `Cipher`
 - Network: Mainnet, To: `oasis1qzvlg0grjxwgjj58tx2xvmv26era6t2csqn22pte` → `Emerald`
 - Network: Testnet, To: `oasis1qr629x0tg9gm5fyhedgs9lw5eh3d8ycdnsxf0run` → `Emerald`
-- Network: Mainnet, To: `TBA` → `Sapphire`
+- Network: Mainnet, To: `oasis1qrd3mnzhhgst26hsp96uf45yhq6zlax0cuzdgcfc` → `Sapphire`
 - Network: Testnet, To: `oasis1qqczuf3x6glkgjuf0xgtcpjjw95r3crf7y2323xd` → `Sapphire`
 <!-- markdownlint-enable line-length -->
 
@@ -414,7 +416,7 @@ If `NETWORK` matches Mainnet or Testnet, then human-readable version of
 - Network: Testnet, runtime ID: `0000000000000000000000000000000000000000000000000000000000000000` → `Cipher`
 - Network: Mainnet, runtime ID: `000000000000000000000000000000000000000000000000e2eaa99fc008f87f` → `Emerald`
 - Network: Testnet, runtime ID: `00000000000000000000000000000000000000000000000072c8215e60d5bca7` → `Emerald`
-- Network: Mainnet, runtime ID: `TBA` → `Sapphire`
+- Network: Mainnet, runtime ID: `000000000000000000000000000000000000000000000000f80306c9858e7279` → `Sapphire`
 - Network: Testnet, runtime ID: `000000000000000000000000000000000000000000000000a6d1e3ebf60dff6c` → `Sapphire`
 <!-- markdownlint-enable line-length -->
 
