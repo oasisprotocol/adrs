@@ -105,5 +105,5 @@ be part of 0.37.x, so it is unknown when this will be possible to implement.
 
 ## References
 
-- [1]: https://datatracker.ietf.org/doc/draft-irtf-cfrg-vrf/
-- [2]: https://github.com/tendermint/tendermint/blob/main/docs/rfc/rfc-013-abci%2B%2B.md
+[1]: https://datatracker.ietf.org/doc/draft-irtf-cfrg-vrf/
+[2]: https://github.com/tendermint/tendermint/blob/main/docs/rfc/rfc-013-abci%2B%2B.md
