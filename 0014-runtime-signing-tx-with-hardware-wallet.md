@@ -6,7 +6,10 @@ Oasis SDK
 
 ## Changelog
 
-- 2022-01-03:
+- 2023-01-23:
+  - Fix Deoxys-II field description in [Signing encrypted runtime
+    transactions](#signing-encrypted-runtime-transactions) section.
+- 2023-01-03:
   - Add Sapphire runtime ID and consensus address on Mainnet.
 - 2022-12-13:
   - Fix Secp256k1 public key size.
@@ -754,11 +757,12 @@ show the hash of the encrypted call data, the public key and the nonce:
 ```
 <!-- markdownlint-enable line-length -->
 
-`TX_HASH` is a hex representation of sha256 checksum of `tx.call.body` field.
+`TX_HASH` is a hex representation of sha256 checksum of `tx.call.body.data`
+field.
 
-`PUBLIC_KEY` is a hex representation of the 32-byte `tx.call.pk` field.
+`PUBLIC_KEY` is a hex representation of the 32-byte `tx.call.body.pk` field.
 
-`NONCE` is a hex representation of the 15-byte `tx.call.nonce` field.
+`NONCE` is a hex representation of the 15-byte `tx.call.body.nonce` field.
 
 Since the transaction stored inside the `tx.call.body.data` field is encrypted,
 there is also no way to discriminate between the transactions, for example
