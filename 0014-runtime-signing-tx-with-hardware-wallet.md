@@ -9,6 +9,8 @@ Oasis SDK
 - 2023-01-23:
   - Fix Deoxys-II field description in [Signing encrypted runtime
     transactions](#signing-encrypted-runtime-transactions) section.
+  - Rename `SIGN_PT_` instructions in APDUSPEC to `SIGN_RT_` for consistency
+    with oasis-core and oasis-sdk codebase.
 - 2023-01-03:
   - Add Sapphire runtime ID and consensus address on Mainnet.
 - 2022-12-13:
@@ -162,7 +164,7 @@ The first three items in the derivation path are hardened.
 | ADDR    | byte (??) | Bech 32 addr          |                          |
 | SW1-SW2 | byte (2)  | Return code           | see list of return codes |
 
-#### SIGN_PT_ED25519
+#### SIGN_RT_ED25519
 
 <!-- markdownlint-disable-next-line no-duplicate-header -->
 ##### Command
@@ -214,7 +216,7 @@ Data is defined as:
 | SIG     | byte (64) | Signature   |                          |
 | SW1-SW2 | byte (2)  | Return code | see list of return codes |
 
-#### SIGN_PT_SECP256K1
+#### SIGN_RT_SECP256K1
 
 <!-- markdownlint-disable-next-line no-duplicate-header -->
 ##### Command
@@ -266,7 +268,7 @@ Data is defined as:
 | SIG     | byte (64) | Signature   |                          |
 | SW1-SW2 | byte (2)  | Return code | see list of return codes |
 
-#### SIGN_PT_SR25519
+#### SIGN_RT_SR25519
 
 <!-- markdownlint-disable-next-line no-duplicate-header -->
 ##### Command
