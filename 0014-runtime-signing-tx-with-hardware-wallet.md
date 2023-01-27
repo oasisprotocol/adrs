@@ -6,6 +6,8 @@ Oasis SDK
 
 ## Changelog
 
+- 2023-01-27:
+  - Fix [Metadata](#metadata-parameter) `chain_context` encoding.
 - 2023-01-23:
   - Fix Deoxys-II field description in [Signing encrypted runtime
     transactions](#signing-encrypted-runtime-transactions) section.
@@ -325,7 +327,7 @@ Data is defined as:
 `Meta` contains the following fields:
 
 - `runtime_id`: 32-byte [runtime ID][runtime id]
-- `chain_context`: 32-byte [chain ID][chain context]
+- `chain_context`: 64-byte [chain ID][chain context]
 - `orig_to` (optional): 20-byte ethereum destination address
 
 ### Changes to Allowance transaction
