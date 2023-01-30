@@ -6,8 +6,10 @@ Oasis SDK
 
 ## Changelog
 
-- 2023-01-27:
-  - Fix [Metadata](#metadata-parameter) `chain_context` encoding.
+- 2023-01-30:
+  - Combine Metadata and Message fields into a single CBOR-encoded object with
+    `metadata` and `tx` fields respectively.
+  - Fix [`metadata.chain_context`](#data-field-format) encoding.
 - 2023-01-23:
   - Fix Deoxys-II field description in [Signing encrypted runtime
     transactions](#signing-encrypted-runtime-transactions) section.
@@ -19,7 +21,7 @@ Oasis SDK
   - Fix Secp256k1 public key size.
 - 2022-10-12:
   - Add Sapphire runtime ID and consensus address on Testnet,
-  - Remove redundant `sig_context` from `Meta`,
+  - Remove redundant `sig_context` from `metadata`,
   - Require `tx.call.format` to be either `0` or `1`.
 - 2022-07-15: Initial public version
 
@@ -199,16 +201,12 @@ All other packets/chunks should contain message to sign.
 <!-- markdownlint-disable-next-line no-emphasis-as-header -->
 *Other Chunks/Packets*
 
-| Field   | Type     | Content              | Expected |
-| ------- | -------- | -------------------- | -------- |
-| Data    | bytes... | Meta+Message         |          |
+| Field   | Type     | Content                   | Expected |
+| ------- | -------- |---------------------------| -------- |
+| Data    | bytes... | CBOR metadata+transaction |          |
 
-Data is defined as:
-
-| Field   | Type     | Content           | Expected     |
-| ------- | -------- |-------------------| ------------ |
-| Meta    | bytes..  | CBOR metadata     |              |
-| Message | bytes..  | CBOR data to sign |              |
+The format of Data field is defined in [Data field format](#data-field-format)
+paragraph.
 
 <!-- markdownlint-disable-next-line no-duplicate-header -->
 ##### Response
@@ -251,16 +249,12 @@ All other packets/chunks should contain message to sign.
 <!-- markdownlint-disable-next-line no-emphasis-as-header -->
 *Other Chunks/Packets*
 
-| Field   | Type     | Content              | Expected |
-| ------- | -------- | -------------------- | -------- |
-| Data    | bytes... | Meta+Message         |          |
+| Field   | Type     | Content                   | Expected |
+| ------- | -------- |---------------------------| -------- |
+| Data    | bytes... | CBOR metadata+transaction |          |
 
-Data is defined as:
-
-| Field   | Type     | Content           | Expected     |
-| ------- | -------- |-------------------| ------------ |
-| Meta    | bytes..  | CBOR metadata     |              |
-| Message | bytes..  | CBOR data to sign |              |
+The format of Data field is defined in [Data field format](#data-field-format)
+paragraph.
 
 <!-- markdownlint-disable-next-line no-duplicate-header -->
 ##### Response
@@ -303,16 +297,12 @@ All other packets/chunks should contain message to sign.
 <!-- markdownlint-disable-next-line no-emphasis-as-header -->
 *Other Chunks/Packets*
 
-| Field   | Type     | Content              | Expected |
-| ------- | -------- | -------------------- | -------- |
-| Data    | bytes... | Meta+Message         |          |
+| Field   | Type     | Content                   | Expected |
+| ------- | -------- |---------------------------| -------- |
+| Data    | bytes... | CBOR metadata+transaction |          |
 
-Data is defined as:
-
-| Field   | Type     | Content           | Expected     |
-| ------- | -------- |-------------------| ------------ |
-| Meta    | bytes..  | CBOR metadata     |              |
-| Message | bytes..  | CBOR data to sign |              |
+The format of Data field is defined in [Data field format](#data-field-format)
+paragraph.
 
 <!-- markdownlint-disable-next-line no-duplicate-header -->
 ##### Response
@@ -322,13 +312,15 @@ Data is defined as:
 | SIG     | byte (64) | Signature   |                          |
 | SW1-SW2 | byte (2)  | Return code | see list of return codes |
 
-#### Metadata parameter
+#### Data field format
 
-`Meta` contains the following fields:
+Data is a CBOR-encoded map containing the following fields:
 
-- `runtime_id`: 32-byte [runtime ID][runtime id]
-- `chain_context`: 64-byte [chain ID][chain context]
-- `orig_to` (optional): 20-byte ethereum destination address
+- `metadata`: map containing relevant information for signing the transaction
+  - `runtime_id`: 32-byte [runtime ID][runtime id]
+  - `chain_context`: 64-byte [chain ID][chain context]
+  - `orig_to` (optional): 20-byte ethereum destination address
+- `tx`: [runtime transaction](#runtime-transaction-format) object
 
 ### Changes to Allowance transaction
 
@@ -372,15 +364,15 @@ We propose the following UI for [`consensus.Deposit`] runtime transaction:
 ```
 <!-- markdownlint-enable line-length -->
 
-`MIXED_TO` can either be `oasis1` or the Ethereum's `0x` address. If `Meta`
+`MIXED_TO` can either be `oasis1` or the Ethereum's `0x` address. If `metadata`
 does not contain `orig_to` field, render the `tx.call.body.to` value in
-`oasis1` format in place of `MIXED_TO`. If `Meta.orig_to` is set,
+`oasis1` format in place of `MIXED_TO`. If `metadata.orig_to` is set,
 then:
 
-1. Check that the ethereum address stored in `orig_to` field maps to the
-   native address in `tx.call.body.to` according to [the reference
+1. Check that the ethereum address stored in `metadata.orig_to` field maps to
+   the native address in `tx.call.body.to` according to [the reference
    implementation of the mapping][ethereum to native address].
-2. Render `orig_to` value in `0x` format in place of `MIXED_TO`.
+2. Render `metadata.orig_to` value in `0x` format in place of `MIXED_TO`.
 
 In addition, if `tx.call.body.to` is empty, then the deposit is made to the
 signer's account inside the runtime. In this case `Self` literal is rendered in
@@ -393,7 +385,7 @@ determined by the following mapping hardcoded in the hardware wallet:
 
 `(Network, Runtime ID, Denomination) → (Number of decimals, SYM)`
 
-Denomination information is stored in `tx.part.body.amount[1]` or
+Denomination information is stored in `tx.call.body.amount[1]` or
 `tx.ai.fee.amount[1]` for the tokens transferred in the transaction or the fee
 respectively. Empty Denomination is valid and signifies the native token
 for the known networks and runtime IDs (see below).
@@ -414,9 +406,9 @@ If the lookup fails, the following policy should be respected:
    runtime on any network.
 3. Otherwise, the number of decimals is 9.
 
-`RUNTIME` shows the 32-byte hex encoded runtime ID stored in `Meta.runtime_id`.
-If `NETWORK` matches Mainnet or Testnet, then human-readable version of
-`RUNTIME` is shown:
+`RUNTIME` shows the 32-byte hex encoded runtime ID stored in
+`metadata.runtime_id`. If `NETWORK` matches Mainnet or Testnet, then
+human-readable version of `RUNTIME` is shown:
 
 <!-- markdownlint-disable line-length -->
 - Network: Mainnet, runtime ID: `000000000000000000000000000000000000000000000000e199119c992377cb` → `Cipher`
@@ -430,8 +422,9 @@ If `NETWORK` matches Mainnet or Testnet, then human-readable version of
 **SIGNATURE CONTEXT COMPUTATION:** [Chain domain separation] context
 for **runtime** transactions beginning with
 `oasis-runtime-sdk/tx: v0 for chain ` and followed by the hash derived from
-`Meta.runtime_id` and `Meta.chain_context`. See [golang implementation][chain
-domain separation implementation] for the reference implementation.
+`metadata.runtime_id` and `metadata.chain_context`. See
+[golang implementation][chain domain separation implementation] for the
+reference implementation.
 
 #### Withdraw
 
@@ -806,7 +799,7 @@ consensus transactions on Ledger show *who* is a signer of the transaction.
 The signer's *from* address can be extracted from
 `tx.ai.si[0].address_spec.signature.<SIGNATURE TYPE>`
 for oasis native address and if the signer wants to show the Ethereum address,
-`Meta.orig_from` should be populated and the hardware wallet should
+`metadata.orig_from` should be populated and the hardware wallet should
 verify it before showing the tx.
 
 ## References
