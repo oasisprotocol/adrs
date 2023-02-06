@@ -6,6 +6,9 @@ Oasis SDK
 
 ## Changelog
 
+- 2023-02-09:
+  - Encode `Meta.runtime_id` and `Meta.orig_to` as Base16.
+  - Change `SIG` in `SIGN_RT_SECP256K1` to 65-byte encoded R,S,V format.
 - 2023-01-23:
   - Fix Deoxys-II field description in [Signing encrypted runtime
     transactions](#signing-encrypted-runtime-transactions) section.
@@ -265,7 +268,7 @@ Data is defined as:
 
 | Field   | Type      | Content     | Note                     |
 | ------- | --------- | ----------- | ------------------------ |
-| SIG     | byte (64) | Signature   |                          |
+| SIG     | byte (65) | Signature   | R,S,V bigendian integers |
 | SW1-SW2 | byte (2)  | Return code | see list of return codes |
 
 #### SIGN_RT_SR25519
@@ -320,13 +323,14 @@ Data is defined as:
 | SIG     | byte (64) | Signature   |                          |
 | SW1-SW2 | byte (2)  | Return code | see list of return codes |
 
-#### Metadata parameter
+#### Meta parameter
 
-`Meta` contains the following fields:
+`Meta` is a CBOR-encoded string → string map with the following fields:
 
-- `runtime_id`: 32-byte [runtime ID][runtime id]
-- `chain_context`: 32-byte [chain ID][chain context]
-- `orig_to` (optional): 20-byte ethereum destination address
+- `runtime_id`: Base16-encoded [runtime ID][runtime id] (64-byte string)
+- `chain_context`: [chain ID][chain context] (64-byte string)
+- `orig_to` (optional): Base16-encoded ethereum destination address (40-byte
+  string)
 
 ### Changes to Allowance transaction
 
