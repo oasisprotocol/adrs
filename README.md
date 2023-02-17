@@ -113,4 +113,5 @@ The following records currently exist:
 * [ADR 0015](0015-vrf-per-block-entropy.md) - Randomized Paratime Proposer Selection
 * [ADR 0016](0016-consensus-parameters-change-proposal.md) - Consensus Parameters Change Proposal
 * [ADR 0020](0020-governance-delegator-votes.md) - Governance Support for Delegator Votes
+* [ADR 0021](0021-keymanager-ephemeral-secrets.md) - Forward-Secret Ephemeral Secrets
 <!-- markdownlint-enable line-length -->
