@@ -6,6 +6,8 @@ Oasis SDK
 
 ## Changelog
 
+- 2023-02-24:
+  - APDU: Define Oasis native and Ethereum-compatible address length.
 - 2023-02-09:
   - Encode `Meta.runtime_id` and `Meta.orig_to` as Base16.
   - Change `SIG` in `SIGN_RT_SECP256K1` to 65-byte encoded R,S,V format.
@@ -135,7 +137,7 @@ The first three items in the derivation path are hardened.
 | Field   | Type      | Content               | Note                     |
 | ------- | --------- | --------------------- | ------------------------ |
 | PK      | byte (33) | Public Key            |                          |
-| ADDR    | byte (??) | Hex addr              |                          |
+| ADDR    | byte (40) | Lower-case hex addr   |                          |
 | SW1-SW2 | byte (2)  | Return code           | see list of return codes |
 
 #### GET_ADDR_SR25519
@@ -164,7 +166,7 @@ The first three items in the derivation path are hardened.
 | Field   | Type      | Content               | Note                     |
 | ------- | --------- | --------------------- | ------------------------ |
 | PK      | byte (32) | Public Key            |                          |
-| ADDR    | byte (??) | Bech 32 addr          |                          |
+| ADDR    | byte (46) | Bech32 addr           |                          |
 | SW1-SW2 | byte (2)  | Return code           | see list of return codes |
 
 #### SIGN_RT_ED25519
