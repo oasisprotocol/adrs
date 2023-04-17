@@ -114,4 +114,5 @@ The following records currently exist:
 * [ADR 0016](0016-consensus-parameters-change-proposal.md) - Consensus Parameters Change Proposal
 * [ADR 0020](0020-governance-delegator-votes.md) - Governance Support for Delegator Votes
 * [ADR 0021](0021-keymanager-ephemeral-secrets.md) - Forward-Secret Ephemeral Secrets
+* [ADR 0022](0022-keymanager-master-secrets.md) - Forward-Secret Master Secrets
 <!-- markdownlint-enable line-length -->
