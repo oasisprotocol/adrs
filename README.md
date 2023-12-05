@@ -115,5 +115,6 @@ The following records currently exist:
 * [ADR 0020](0020-governance-delegator-votes.md) - Governance Support for Delegator Votes
 * [ADR 0021](0021-keymanager-ephemeral-secrets.md) - Forward-Secret Ephemeral Secrets
 * [ADR 0022](0022-keymanager-master-secrets.md) - Forward-Secret Master Secrets
+* [ADR 0023](0023-keymanager-secret-sharing.md) - Secret Sharing Schemes (CHURP)
 * [ADR 0024](0024-off-chain-runtime-logic.md) - Runtime Off-chain Logic (ROFL)
 <!-- markdownlint-enable line-length -->
