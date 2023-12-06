@@ -94,8 +94,8 @@ pub trait App {
 }
 ```
 
-Each application should register RPC methods, prefixed with the application
-name.
+Each application should register RPC methods and adhere to the naming
+convention `app.Method`.
 
 #### Example 1
 
@@ -115,21 +115,21 @@ pub trait MasterSecrets {
 
 Methods:
 
-- `master-secrets/generate`
+- `MasterSecrets.Generate`
 
-- `master-secrets/load`
+- `MasterSecrets.Load`
 
-- `master-secrets/replicate`
+- `MasterSecrets.Replicate`
 
-- `master-secrets/key_pair`
+- `MasterSecrets.KeyPair`
 
-- `master-secrets/private_key`
+- `MasterSecrets.PrivateKey`
 
-- `master-secrets/public_key`
+- `MasterSecrets.PublicKey`
 
-- `master-secrets/symmetric_key`
+- `MasterSecrets.SymmetricKey`
 
-- `master-secrets/update_status`
+- `MasterSecrets.UpdateStatus`
 
 #### Example 2
 
@@ -143,9 +143,9 @@ pub trait CPUChangeDetection {
 
 Methods:
 
-- `cpu-change/encrypt`
+- `CpuChange.Encrypt`
 
-- `cpu-change/decrypt`
+- `CpuChange.Decrypt`
 
 ### App worker
 
@@ -242,8 +242,8 @@ storing a secret can change over time.
   - combines shares (adds polynomials and merges non-zero-hole verification
     matrices),
 
-  - stores the result (full share) locally in the enclave's confidential
-    storage,
+  - seals the result (full share) and stores it locally in the enclave's
+    confidential storage,
 
   - sends a transaction containing the checksum of the merged matrix
     to the consensus layer, confirming receipt of all shares.
@@ -308,7 +308,10 @@ storing a secret can change over time.
 
   - verifies received points,
 
-  - combines the points into a polynomial (full share).
+  - combines the points into a polynomial (full share),
+
+  - seals the result (full share) and stores it locally in the enclave's
+    confidential storage,
 
   - sends a transaction containing the checksum of the proactive verification
     matrix to the consensus layer confirming that the full share was received.
@@ -372,6 +375,9 @@ type Config struct {
   // Zero value disables handoffs.
   HandoffInterval beacon.EpochTime `json:"handoff_interval,omitempty"`
 
+  // Verification is true iff the dealing and the handoffs should be verified.
+  Verification bool `json:"verification,omitempty"`
+
   // BlameAssignment is true iff the responses should be checked
   // for corrupted shares.
   BlameAssignment bool `json:"blame_assignment,omitempty"`
@@ -415,17 +421,17 @@ type SignedPolicySGX struct {
 var (
   // MethodChurpCreate is the method name for creating a new CHURP instance.
   MethodChurpCreate = transaction.NewMethodName(
-    ModuleName, "Churp/Create", Config{},
+    ModuleName, "Churp.Create", Config{},
   )
 
   // MethodChurpUpdatePolicy is the method name for CHURP policy updates.
   MethodChurpUpdatePolicy = transaction.NewMethodName(
-    ModuleName, "Churp/UpdatePolicy", SignedPolicySGX{},
+    ModuleName, "Churp.UpdatePolicy", SignedPolicySGX{},
   )
 
   // MethodChurpRegister is the method name for node registration with the given checksum.
   MethodChurpRegister = transaction.NewMethodName(
-    ModuleName, "Churp/Register", hash.Hash{},
+    ModuleName, "Churp.Register", hash.Hash{},
   )
 )
 ```
@@ -590,33 +596,37 @@ pub trait Churp {
   /// Key share:
   ///     K = H(runtime_id, key_pair_id)^{r g(0)}
   ///
+  ///
+  /// The caller should always provide a proof which can be independently
+  /// verified before key shares are released to the caller.
+  ///
   /// WARNING: This method must be called over a secure channel as
   /// the key share needs to be kept secret and generated only
   /// for authorized nodes.
   fn key_share(&self, churp_id: u8, round: u64, runtime_id: Namespace, 
-    key_pair_id: KeyPairId) -> Integer;
+    key_pair_id: KeyPairId, proof: Proof) -> Integer;
 }
 ```
 
 Methods:
 
-- `churp/init`
+- `Churp.Init`
 
-- `churp/verification_matrix`
+- `Churp.VerificationMatrix`
 
-- `churp/bivariate_share`
+- `Churp.BivariateShare`
 
-- `churp/dealing`
+- `Churp.Dealing`
 
-- `churp/share_reduction`
+- `Churp.ShareReduction`
 
-- `churp/proactive_randomization`
+- `Churp.ProactiveRandomization`
 
-- `churp/full_share_distribution`
+- `Churp.FullShareDistribution`
 
-- `churp/switch_point`
+- `Churp.SwitchPoint`
 
-- `churp/key_share`
+- `Churp.KeyShare`
 
 ### Key manager client
 
@@ -630,16 +640,6 @@ pub trait Client {
   fn key(&self, churp_id: u8, round: u64, runtime_id: Namespace, key_pair_id: KeyPairId) -> Vec<u8>;
 }
 ```
-
-### Positive (CHURP)
-
-- High security, as the master secret is shared among key manager nodes.
-- Supports proactive randomization (share refresh).
-- Dynamic committees.
-
-### Negative (CHURP)
-
-- Slower than KDC.
 
 ## Key Derivation Center
 
@@ -656,16 +656,39 @@ pub trait KDC {
 }
 ```
 
-### Positive (KDC)
+## Consequences
+
+### Positive
+
+CHURP:
 
 - High security, as the master secret is shared among key manager nodes.
-- Supports proactive randomization (share refresh).
-- Faster than CHURP.
 
-### Negative (KDC)
+- Supports proactive randomization (share refresh).
+
+- Dynamic committees.
+
+KDC:
+
+- High security, as the master secret is shared among key manager nodes.
+
+- Supports proactive randomization (share refresh).
+
+### Negative
+
+CHURP:
+
+- Handoffs are computationally intensive.
+
+KDC:
 
 - The number of key manager nodes that share a master secret is fixed and
-  cannot be changed once shares are generated.
+  cannot be changed once shares are generated. Consequently, if too many
+  nodes are destroyed, the secret cannot be recovered.
+
 - Support for replicating a share to a specific node is needed.
-- A trusted party needs to select a secret, generate secret shares and
-  distribute them to the nodes.
+
+### Neutral
+
+- Issuing derived key shares with CHURP should be slightly slower compared
+  to KDC.
