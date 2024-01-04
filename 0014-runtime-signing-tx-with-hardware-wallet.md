@@ -142,7 +142,7 @@ The first three items in the derivation path are hardened.
 
 #### GET_ADDR_SR25519
 
-<!-- markdownlint-disable-next-line no-duplicate-header -->
+<!-- markdownlint-disable-next-line no-duplicate-heading -->
 ##### Command
 
 | Field      | Type           | Content                | Expected       |
@@ -160,7 +160,7 @@ The first three items in the derivation path are hardened.
 
 The first three items in the derivation path are hardened.
 
-<!-- markdownlint-disable-next-line no-duplicate-header -->
+<!-- markdownlint-disable-next-line no-duplicate-heading -->
 ##### Response
 
 | Field   | Type      | Content               | Note                     |
@@ -171,7 +171,7 @@ The first three items in the derivation path are hardened.
 
 #### SIGN_RT_ED25519
 
-<!-- markdownlint-disable-next-line no-duplicate-header -->
+<!-- markdownlint-disable-next-line no-duplicate-heading -->
 ##### Command
 
 | Field | Type     | Content                | Expected  |
@@ -188,7 +188,7 @@ The first packet/chunk includes only the derivation path.
 
 All other packets/chunks should contain message to sign.
 
-<!-- markdownlint-disable-next-line no-emphasis-as-header -->
+<!-- markdownlint-disable-next-line no-emphasis-as-heading -->
 *First Packet*
 
 | Field      | Type     | Content                | Expected  |
@@ -199,7 +199,7 @@ All other packets/chunks should contain message to sign.
 | Path[3]    | byte (4) | Derivation Path Data   | ?         |
 | Path[4]    | byte (4) | Derivation Path Data   | ?         |
 
-<!-- markdownlint-disable-next-line no-emphasis-as-header -->
+<!-- markdownlint-disable-next-line no-emphasis-as-heading -->
 *Other Chunks/Packets*
 
 | Field   | Type     | Content              | Expected |
@@ -213,7 +213,7 @@ Data is defined as:
 | Meta    | bytes..  | CBOR metadata     |              |
 | Message | bytes..  | CBOR data to sign |              |
 
-<!-- markdownlint-disable-next-line no-duplicate-header -->
+<!-- markdownlint-disable-next-line no-duplicate-heading -->
 ##### Response
 
 | Field   | Type      | Content     | Note                     |
@@ -223,7 +223,7 @@ Data is defined as:
 
 #### SIGN_RT_SECP256K1
 
-<!-- markdownlint-disable-next-line no-duplicate-header -->
+<!-- markdownlint-disable-next-line no-duplicate-heading -->
 ##### Command
 
 | Field | Type     | Content                | Expected  |
@@ -240,7 +240,7 @@ The first packet/chunk includes only the derivation path.
 
 All other packets/chunks should contain message to sign.
 
-<!-- markdownlint-disable-next-line no-emphasis-as-header -->
+<!-- markdownlint-disable-next-line no-emphasis-as-heading -->
 *First Packet*
 
 | Field      | Type     | Content                | Expected  |
@@ -251,7 +251,7 @@ All other packets/chunks should contain message to sign.
 | Path[3]    | byte (4) | Derivation Path Data   | ?         |
 | Path[4]    | byte (4) | Derivation Path Data   | ?         |
 
-<!-- markdownlint-disable-next-line no-emphasis-as-header -->
+<!-- markdownlint-disable-next-line no-emphasis-as-heading -->
 *Other Chunks/Packets*
 
 | Field   | Type     | Content              | Expected |
@@ -265,7 +265,7 @@ Data is defined as:
 | Meta    | bytes..  | CBOR metadata     |              |
 | Message | bytes..  | CBOR data to sign |              |
 
-<!-- markdownlint-disable-next-line no-duplicate-header -->
+<!-- markdownlint-disable-next-line no-duplicate-heading -->
 ##### Response
 
 | Field   | Type      | Content     | Note                     |
@@ -275,7 +275,7 @@ Data is defined as:
 
 #### SIGN_RT_SR25519
 
-<!-- markdownlint-disable-next-line no-duplicate-header -->
+<!-- markdownlint-disable-next-line no-duplicate-heading -->
 ##### Command
 
 | Field | Type     | Content                | Expected  |
@@ -292,7 +292,7 @@ The first packet/chunk includes only the derivation path.
 
 All other packets/chunks should contain message to sign.
 
-<!-- markdownlint-disable-next-line no-emphasis-as-header -->
+<!-- markdownlint-disable-next-line no-emphasis-as-heading -->
 *First Packet*
 
 | Field      | Type     | Content                | Expected  |
@@ -303,7 +303,7 @@ All other packets/chunks should contain message to sign.
 | Path[3]    | byte (4) | Derivation Path Data   | ?         |
 | Path[4]    | byte (4) | Derivation Path Data   | ?         |
 
-<!-- markdownlint-disable-next-line no-emphasis-as-header -->
+<!-- markdownlint-disable-next-line no-emphasis-as-heading -->
 *Other Chunks/Packets*
 
 | Field   | Type     | Content              | Expected |
@@ -317,7 +317,7 @@ Data is defined as:
 | Meta    | bytes..  | CBOR metadata     |              |
 | Message | bytes..  | CBOR data to sign |              |
 
-<!-- markdownlint-disable-next-line no-duplicate-header -->
+<!-- markdownlint-disable-next-line no-duplicate-heading -->
 ##### Response
 
 | Field   | Type      | Content     | Note                     |
@@ -639,7 +639,7 @@ We propose the following UI for the [`contracts.Upgrade`] method:
 The Data screen behavior is the same as for the
 [contract instantiate](#instantiating-smart-contract) transaction.
 
-<!-- markdownlint-disable-next-line no-duplicate-header -->
+<!-- markdownlint-disable-next-line no-duplicate-heading -->
 #### Example
 
 To upload, instantiate and call the [hello world example] running on Testnet
@@ -723,7 +723,7 @@ In this case the hardware wallet renders the following UI.
 [`evm.Create`] method will not be managed by the hardware wallet because the
 size of the EVM byte code may easily exceed the wallet's encrypted memory size.
 
-<!-- markdownlint-disable-next-line no-duplicate-header -->
+<!-- markdownlint-disable-next-line no-duplicate-heading -->
 #### Calling smart contract
 
 In contrast to `contracts.Call`, [`evm.Call`] method requires contract ABI and
