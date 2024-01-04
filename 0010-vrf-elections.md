@@ -36,7 +36,7 @@ following additions and extra clarifications:
   enforcing this when decoding.
 
 - When decoding s in the ECVRF_verify routine, the s scalar MUST fall
-  within the range 0 <= i < L.  This change will make proofs
+  within the range 0 &le; i < L.  This change will make proofs
   non-malleable.  Note that this check is unneeded for the c scalar
   as it is 128-bits, and thus will always lie within the valid range.
   This check was not present in the IETF draft prior to version 10.
