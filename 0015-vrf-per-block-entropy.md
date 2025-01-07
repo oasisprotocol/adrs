@@ -106,4 +106,4 @@ be part of 0.37.x, so it is unknown when this will be possible to implement.
 ## References
 
 [1]: https://datatracker.ietf.org/doc/draft-irtf-cfrg-vrf/
-[2]: https://github.com/cometbft/cometbft/blob/main/docs/rfc/tendermint-core/rfc-013-abci%2B%2B.md
+[2]: https://github.com/cometbft/cometbft/blob/main/docs/references/rfc/tendermint-core/rfc-013-abci%2B%2B.md
