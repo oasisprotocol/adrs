@@ -116,4 +116,5 @@ The following records currently exist:
 * [ADR 0021](0021-keymanager-ephemeral-secrets.md) - Forward-Secret Ephemeral Secrets
 * [ADR 0022](0022-keymanager-master-secrets.md) - Forward-Secret Master Secrets
 * [ADR 0024](0024-off-chain-runtime-logic.md) - Runtime Off-chain Logic (ROFL)
+* [ADR 0025](0025-bundle_hot_loading.md) - Hot-loading of Runtime Bundles
 <!-- markdownlint-enable line-length -->
